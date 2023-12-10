@@ -2,8 +2,8 @@ from langchain.agents.agent_types import AgentType
 from langchain.chat_models import ChatOpenAI
 from langchain.llms import openai
 from langchain_experimental.agents.agent_toolkits import create_csv_agent
-from key import OPENAI_API_KEY
-openai_api_key = OPENAI_API_KEY
+#from key import OPENAI_API_KEY
+#openai_api_key = OPENAI_API_KEY
 import streamlit as st
 import  matplotlib.pyplot as plt
 import tempfile
@@ -34,9 +34,10 @@ def agent_function(file_path, user_input):
     Returns:
     - dict: The response from the agent, or None if an exception occurs.
     '''
+    openai_api_key = st.secrets["openai_api_key"]
     # Create an agent instance
     agent = create_csv_agent(
-        ChatOpenAI(temperature=0, model="gpt-3.5-turbo", openai_api_key=OPENAI_API_KEY),
+        ChatOpenAI(temperature=0, model="gpt-3.5-turbo", openai_api_key=openai_api_key),
         file_path,  # Pass the file_path as the path argument
         agent_type=AgentType.OPENAI_FUNCTIONS,
         verbose=True
